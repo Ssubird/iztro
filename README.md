@@ -192,6 +192,16 @@ pnpm install iztro -S
   var astrolabe = iztro.astro.byLunar('2000-7-17', 2, '女', false, true, 'zh-CN');
   ```
 
+## 文档导出
+
+仓库自带了一个脚本，可以把 `docs` 目录中构建好的 HTML 页面批量转换为 Markdown 文件，方便二次整理或导入知识库。运行方式如下：
+
+```bash
+yarn export:docs
+```
+
+转换后的 Markdown 会写入 `docs-md/` 目录，目录结构会与原始站点保持一致。
+
 ## 贡献
 
 如果你对 `iztro` 有兴趣，也想加入贡献队伍，我们非常欢迎，你可以用以下方式进行：
