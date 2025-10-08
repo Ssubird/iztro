@@ -1,0 +1,57 @@
+﻿# 梅花易数配置示例（快乐8）
+# 针对 keno8 参数的中文注释，方便快速上手。
+
+config_name: sample-keno8-dynamic
+
+# 直连数据源（true=不使用系统代理）
+no_proxy: true
+# 是否完全离线运行（true=只读缓存）
+offline: false
+# 玩法类型：设置为 keno8
+game: keno8
+# 起卦动爻规则，保留 standard 即可
+moving_rule: standard
+# 卦象主/互/变基准权重，快乐8 可适度均衡
+hex_weights: 0.42,0.30,0.28
+# 历史频率权重基准（0.25~0.45 范围），快乐8 推荐稍高
+history_weight: 0.38
+# 近期走势权重基准，0.2~0.35；提高可增强短线热号
+recency_weight: 0.26
+# 间隔权重基准，0.1~0.2；数值越大越补冷号
+gap_weight: 0.14
+# 农历/月相权重基准，0.15~0.35 区间
+calendar_weight: 0.22
+# 历史半衰期（天），60~120 之间，快乐8 建议 70~90
+history_half_life: 70
+# 限制读取历史期数，0 表示全部；快乐8 可用 300~500
+max_periods: 360
+
+# 回测窗口长度与步长（影响优化与回看结果）
+window_size: 150
+window_step: 3
+
+# 输出的守号组合数量（快乐8 组合为 10 个主号）
+guard_sets: 3
+# 守号蓝球数量对快乐8 无效，可保持 0
+guard_blue: 0
+# 守号参考期数，用于控制历史蓝球评分（此处只影响节奏建议）
+guard_horizon: 120
+
+# 是否禁用动态推衍（true=全部使用上方的固定参数）
+static_weights: false
+# 推理完成后是否自动执行参数优化
+auto_optimize: true
+
+# 卦象权重候选列表（供自动优化）
+opt_hex_grid:
+  - 0.42,0.30,0.28
+  - 0.4,0.3,0.3
+  - 0.45,0.25,0.30
+# 历史权重候选列表
+opt_history_grid:
+  - 0.3
+  - 0.35
+  - 0.4
+
+# 遗传算法示例：
+# python meihuayishu/run_meihua.py --config configs/meihua_keno8.yaml --evolve --window-size 150 --window-step 3

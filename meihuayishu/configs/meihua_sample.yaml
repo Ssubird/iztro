@@ -1,0 +1,59 @@
+﻿# 梅花易数配置示例（双色球）
+# 所有参数均可被 run_meihua.py 的 --config 加载，注释说明用途与推荐范围。
+
+# 方便识别当前预设的名称
+config_name: sample-ssq-dynamic
+
+# 是否直连数据源（true=跳过系统代理）；网络不稳定时建议 true
+no_proxy: true
+# 是否仅使用本地缓存（true=不联网，只读缓存/离线数据）
+offline: false
+# 玩法类型：ssq=双色球 | dlt=大乐透 | keno8=快乐8
+game: ssq
+# 梅花起卦动爻生成策略，standard 为默认算法
+moving_rule: standard
+# 卦象权重基准（主/互/变），总和建议 1.0 左右，可按 0.3~0.6 调整主卦占比
+hex_weights: 0.48,0.27,0.25
+# 历史频率权重基准，越大越看重整体历史（0.25~0.45 较常用）
+history_weight: 0.35
+# 近期走势权重基准，越大越敏感近期热号（0.2~0.4 推荐）
+recency_weight: 0.28
+# 冷热间隔权重基准，突出久未出现号码（0.1~0.2 区间）
+gap_weight: 0.12
+# 黄历/五行权重基准，受农历因子调节的强度（0.15~0.35 推荐）
+calendar_weight: 0.25
+# 历史半衰期（天），数值越小越强调近期开奖，建议 60~120
+history_half_life: 75
+# 限制读取的历史期数，0 或缺省表示全部，可按 200~600 视需求
+max_periods: 400
+
+# 滑动窗口大小（回测/优化使用），数值越大越平滑，建议 150~240
+window_size: 180
+# 窗口步长（回测间隔），3~5 可平衡速度与精度
+window_step: 3
+
+# 守号组合数量，填写 0 关闭；适合固定买入多期
+guard_sets: 3
+# 守号参考历史周期（天数），数值越大越重视长期蓝球热度
+guard_horizon: 150
+# 守号蓝球备选数量（仅双色球）；建议 4~8
+guard_blue: 6
+
+# 是否使用固定权重（true=完全按照上面的基准，不做动态推演）
+static_weights: false
+# 是否在推理后立刻触发一次参数优化（等价于命令行 --auto-optimize）
+auto_optimize: true
+
+# 卦象权重搜索候选（供自动优化使用），可写多行，每项为 主/互/变
+opt_hex_grid:
+  - 0.48,0.27,0.25
+  - 0.5,0.25,0.25
+  - 0.45,0.25,0.30
+# 历史权重搜索候选列表，配合 opt_hex_grid 使用
+opt_history_grid:
+  - 0.3
+  - 0.35
+  - 0.4
+
+# 如需使用遗传算法微调参数：
+# python meihuayishu/run_meihua.py --config configs/meihua_sample.yaml --evolve --window-size 180 --window-step 3
