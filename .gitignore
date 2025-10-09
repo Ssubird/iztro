@@ -5,3 +5,9 @@ coverage
 .vscode
 *.log
 .DS_Store
+# Python缓存
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
